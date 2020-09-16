@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import presence_of_element_located
-import time,os
+import time
 # driver.find_elements_by_id("cheddar")
 # driver.find_element_by_css_selector("#cheese #cheddar")
 # driver.find_elements_by_class_name()
@@ -60,3 +60,5 @@ def 综合():
         选项出现 = driver.find_element_by_xpath('''//span[text()="'''+内容和选项+'''"]''')
         time.sleep(0.5)
         选项出现.click()
+
+
