@@ -62,3 +62,31 @@ def 综合():
         选项出现.click()
 
 
+import os,sys,django,xlrd
+# 本文件在manage.py同文件夹下
+def django导入库数据():
+    文件名 = '表.xls'
+    读取的Excel = xlrd.open_workbook(filename = 文件名)
+    文件内第一个表= 读取的Excel.sheet_by_index(0)
+    # def 获得列序号(表名,查找字段名):
+    #     列序号 = None
+    #     for i in range(表名.ncols):
+    #         if (表名.cell_value(0,i) == 查找字段名):
+    #             列序号 = i
+    #             break
+    #     return 列序号
+    #竖向资料 = [文件内第一个表.col_values(i) for i in range(文件内第一个表.ncols)]
+    横向资料 = [文件内第一个表.row_values(i) for i in range(1,文件内第一个表.nrows)]
+
+    project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.append(project_path)
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'shuai.settings'
+    django.setup()
+    from APP名称.models import 模型类名
+    list = []
+    for i in 横向资料:
+        list.append(模型类名(字段1 = i[0],字段2 = i[1],字段3 = i[2],字段4 = i[3]))
+
+    模型类名.objects.bulk_create(list)
+
+
