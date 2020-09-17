@@ -76,5 +76,49 @@ def 连续点击tkinter():
     root.mainloop()
 
 
-def 爬虫获取数据():
-	
+import json
+import requests
+def 爬虫获取post数据():
+    #登陆url = 'user/login'
+    postUrl = ''
+    # payloadData数据
+    payloadData = {
+    '': ""
+        }
+
+    # data={
+    #     '': "",
+    #     '': "",
+    # }
+
+    # 请求头设置
+    payloadHeader = {
+    'Host': '',
+    'Origin': '',
+    #'Cookie': '',
+    'Referer': '',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36',
+    'Content-Type': 'application/json',
+    'Content-Length': '32',
+    'Connection': 'keep-alive',
+    'Authorization': 'bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDE1OTQ4NjAsInN1YiI6ImJ3eWRiZyJ9.t_XDqE2CaCSxg_Mtw5BrgUCTFpjpmU9oyI32oGPO9wY',
+    'Accept-Language': 'zh-CN,zh;q=0.9',
+    'Accept-Encoding': 'gzip, deflate',
+    'Accept': 'application/json, text/plain, */*',
+    }
+	# 下载超时
+    timeOut = 25
+    #session=requests.session()
+    #session.post(登陆url,headers=payloadHeader,data=data)
+    #r = requests.post(postUrl, data=json.dumps(payloadData), headers=payloadHeader)
+    dumpJsonData = json.dumps(payloadData)
+    #res = session.post(postUrl, data=dumpJsonData, headers=payloadHeader, timeout=timeOut, allow_redirects=False)
+    res = requests.post(postUrl, data=dumpJsonData, headers=payloadHeader, timeout=timeOut, allow_redirects=False)
+    # 下面这种直接填充json参数的方式也OK
+    # res = requests.post(postUrl, json=payloadData, headers=header)
+    #print(f"responseTime = {datetime.datetime.now()}, statusCode = {res.status_code}, res text = {res.text}")
+    res_dict = eval(res.text)
+    信息列表 = []
+    for i in res_dict['obj']:
+        信息列表.append(i['khmc']+'--')
+    return 信息列表
